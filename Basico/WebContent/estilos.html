@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Estilos</title>
+	<!-- Este es un comentario HTML -->
+	<style>
+		/* 
+		 Selectores de elemento (etiqueta)
+		 otro comentario
+		 */
+		h1, h2 {
+			text-align: center;
+		}
+		body {
+			color: lightgray;
+		}
+		h2 {
+			color: red;
+		}
+		h1 {
+			color: green;
+		}
+		p a { /* Identificador de elemento con jerarquía */
+			color: red;
+			font-style: italic;
+		}
+		ol {
+			font-style: oblique;
+		}
+		
+		/* Selectores de clase */
+		.colorNegro {
+			color: black;
+		}
+		ol.sinVinieta { /* De clase que aplica a un elemento */
+			list-style-type: none;
+			padding: 0px;
+		}
+		.filaImpar {
+			background-color: lightgray;
+		}
+		.filaPar {
+			background-color: violet;
+		}
+		
+		/* Selectores de identificador */
+		#tabla1 {
+			color: navy;
+		}
+		
+		#tabla1 td, #tabla1 { /* Jerarquía, son los td dentro de la table */
+			background-color: pink;
+			border: 1px solid lime;
+		}
+
+		#tabla2 {
+			color: green;
+		}
+		
+		#tabla3 {
+			color: navy;
+		}
+		
+		/* Selectores de pseudo-elemento */
+		#tabla3 tr:first-child {
+			background-color: yellow;
+		}
+		
+		#tabla3 tr:nth-child(odd) {
+			background-color: lightgray;
+		}
+
+		#tabla3 tr:nth-child(even) {
+			background-color: lile;
+		}
+
+		#tabla3 tr:last-child {
+			background-color: brown;
+		}
+		
+		/* Selectores con atributos */
+		input[type=text][name=nombre] {
+			color: green;
+		}
+		
+	</style>
+</head>
+<body>
+	<h1 style="font-family: sans-serif;">Título 1</h1>
+	<p>
+		Ir a 
+		<a class="colorNegro" href="http://www.google.com">google.com</a>
+	</p>
+	<a href="http://www.yahoo.com">yahoo.com</a>
+	<h1>Título 2</h1>
+	<h2>Otro título</h2>
+	
+	<ol class="colorNegro">
+		<li>primero</li>
+		<li>segundo</li>
+		<li>tercero</li>
+	</ol>
+
+	<ol class="colorNegro sinVinieta">
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+	</ol>
+	
+	<ol class="sinVinieta">
+		<li>peras</li>
+		<li>manzanas</li>
+		<li>uvas</li>
+	</ol>
+	
+	<table id="tabla1">
+		<tr>
+			<th>Id</th>
+			<th>Nombre</th>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>Uno</td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>Dos</td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>Tres</td>
+		</tr>
+	</table>
+	
+	<br/>
+	
+	<table id="tabla2">
+		<tr class="filaImpar"><td>Uno</td></tr>
+		<tr class="filaPar"><td>Dos</td></tr>
+		<tr class="filaImpar"><td>Tres</td></tr>
+	</table>
+	
+	<br/>
+	
+	<table id="tabla3">
+		<tr>
+			<th>Id</th>
+			<th>Nombre</th>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>Uno</td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>Dos</td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>Tres</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				Fila final
+			</td>
+		</tr>
+	</table>
+	
+	<input type="text">
+	<input type="text" name="nombre">
+	<input type="radio">
+</body>
+</html>
