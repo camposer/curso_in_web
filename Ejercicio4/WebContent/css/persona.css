@@ -1,0 +1,14 @@
+#tablaPersonas td:nth-child(3),
+#tablaPersonas td:nth-child(4),
+#tablaPersonas td:nth-child(5) {
+	text-align: center;
+}
+
+#tablaPersonas td:nth-child(4) a,
+#tablaPersonas td:nth-child(5) a {
+	color: black;
+}
+
+#tablaPersonas {
+	width: 400px;
+}
