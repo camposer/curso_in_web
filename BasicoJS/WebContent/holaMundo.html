@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Hola Mundo JS</title>
+	<script>
+		var a = 1;
+		var b = 2;
+		var c = a + b;
+		
+		function sumar(a, b) {
+			return a + b;
+		}
+		
+		function sumarSinRetorno(a, b) {
+			document.write(a + " + " + b + " = " + (a + b));
+		}
+		
+		var multiplicar = function(a, b) {
+			return a * b;
+		};
+		
+		document.write(a + " + " + b + " = " + c);
+		document.write("<br/>");
+		
+		var d = sumar(8, 2);
+		document.write("8 + 2 = " + d);
+		document.write("<br/>");
+		
+		var e = sumarSinRetorno(4, 5);
+		document.write("<br/>");
+		document.write(e);
+		document.write("<br/>");
+
+		document.write("2 * 3 = " + multiplicar(2, 3));
+		
+		</script>
+</head>
+<body>
+		
+</body>
+</html>

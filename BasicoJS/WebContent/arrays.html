@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Arrays</title>
+	<script>
+		var nombres = [ "cero", "primero", "segundo", 3];
+		nombres[nombres.length] = "cuarto";
+		nombres.push(5);
+		
+		for (var i = 0; i < nombres.length; i++) {
+			document.write(i + ". " + nombres[i] + ", ");
+		}
+		document.write("<br/><br/>");
+		
+		var html = "<table border='1'>";
+		for (var i in nombres) {
+			html += "<tr><td>" + nombres[i] + "</td></tr>";
+		}
+		html += "</table>";
+		document.write(html);
+	</script>
+</head>
+<body>
+
+</body>
+</html>
