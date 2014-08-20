@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
 	<script type="text/javascript" src="js/Persona.class.js"></script>
+	<script type="text/javascript" src="js/PersonaUtil.class.js"></script>
 	<script>
 		var p1 = new Persona("Juan", "Pérez");
 		p1.setFechaNacimiento(new Date(1980, 1, 1));
@@ -13,15 +14,14 @@
 		p2.setFechaNacimiento(new Date(1986, 2, 2));
 		p2.setSexo(SEXO_FEMENINO);
 		
-		var personas = [p1, 
-		                p2, 
-		                new Persona("Pedro", "Picapiedra")
-			];
+		var personaUtil = new PersonaUtil();
+		personaUtil.agregar(p1);
+		personaUtil.agregar(p2);
 		
+		var personas = personaUtil.obtenerTodos(); 
 		for (var i in personas) {
-			document.writeln(personas[i] + "<br/>");
+			document.writeln(personas[i] + "<br/>");			
 		}
-		
 	</script>
 </head>
 <body>
