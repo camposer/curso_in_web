@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<script type="text/javascript" src="js/Persona.class.js"></script>
+	<script>
+		var p1 = new Persona("Juan", "Pérez");
+		p1.setFechaNacimiento(new Date(1980, 1, 1));
+		p1.setSexo(SEXO_MASCULINO);
+		
+		var p2 = new Persona("María", "García");
+		p2.setFechaNacimiento(new Date(1986, 2, 2));
+		p2.setSexo(SEXO_FEMENINO);
+		
+		var personas = [p1, 
+		                p2, 
+		                new Persona("Pedro", "Picapiedra")
+			];
+		
+		for (var i in personas) {
+			document.writeln(personas[i] + "<br/>");
+		}
+		
+	</script>
+</head>
+<body>
+
+</body>
+</html>
