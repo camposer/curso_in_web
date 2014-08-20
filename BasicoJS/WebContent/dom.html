@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document Object Model - DOM</title>
+	<style>
+		table, table td {
+			border: 1px solid black;
+		}
+		
+		#tabla1 {
+			background-color: lightgray;
+		}
+
+		#tabla2 {
+			background-color: lightblue;
+		}
+
+		#tabla3 {
+			background-color: violet;
+		}
+	</style>
+	<script>
+		var numeros = ["Uno", "Dos", "Tres"];
+		
+		var crearTabla2 = function() {
+			var c = document.getElementById("contenedor");
+			var html = "<table id='tabla2'>";
+			for (var i in numeros) {
+				html += "<tr><td>" + numeros[i] + "</td></tr>";
+			}
+			html += "</table>"
+			c.innerHTML += "<br/>" + html;
+		};
+		
+		var crearTabla3 = function() {
+			var c = document.getElementById("contenedor");
+			var br = document.createElement("br"); 
+			var table = document.createElement("table");
+			table.setAttribute("id", "tabla3");
+			
+			for (var i in numeros) {
+				var tr = document.createElement("tr");
+				var td = document.createElement("td");
+				td.innerHTML = numeros[i];
+				
+				tr.appendChild(td);
+				table.appendChild(tr);
+			}
+			
+			c.appendChild(br);
+			c.appendChild(table);
+		};
+
+		var inicializar = function() {
+			crearTabla2();
+			crearTabla3();
+		};
+	</script>
+</head>
+<body onload="inicializar()">
+	<div id="contenedor" >
+		<table id="tabla1">
+			<tr><td>Uno</td></tr>
+			<tr><td>Dos</td></tr>
+			<tr><td>Tres</td></tr>
+		</table>
+	</div>
+</body>
+</html>
