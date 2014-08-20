@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Callbacks</title>
+	<script>
+		var holaMundo = function(nombre) {
+			document.writeln("Hola " + nombre + "<br/>");
+		};
+		
+		var helloWorld = function(name) {
+			document.writeln("Hello " + name + "<br/>");
+		};
+
+		var fun = function(llamamePaTras, n) {
+			llamamePaTras(n);
+		};
+		
+		fun(holaMundo, "Rodolfo"); // => Hola Rodolfo
+		fun(helloWorld, "Rodolfo"); // => Hello Rodolfo
+		
+		fun(function(m) {
+			document.writeln("Chao " + m + "<br/>");
+		}, "Rodolfo"); // => Chao Rodolfo
+		
+	</script>
+</head>
+<body>
+
+</body>
+</html>

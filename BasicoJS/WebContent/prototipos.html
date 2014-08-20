@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Prototipos</title>
+	<script type="text/javascript">
+		function Persona(_id) {
+			this.id = _id;
+			this.caminar = function() {
+				document.writeln(this.id + " Estoy caminando...<br/>");
+			};		
+		}
+		
+		var p1 = new Persona(1);
+		p1.caminar();
+
+		// Añadiendo propiedades dinámicamente
+		p1.nombre = "Juan"; // dot notation
+		p1["apellido"] = "Pérez"; // brackets notation
+		document.writeln("p1.nombre = " + p1.nombre + "<br/>");
+		document.writeln("p1.apellido = " + p1.apellido + "<br/>");
+
+		// Añadiendo métodos dinámicamente
+		p1.respirar = function() {
+			document.writeln(this.id + "Estoy respirando...<br/>");
+		}; // Método virtual!
+		p1.respirar();
+
+		var dormir = function() {
+			document.writeln(this.id + "Estoy durmiendo...<br/>");
+		};
+		p1.midormir = dormir;
+		p1.midormir();
+
+		var p3 = p1;
+		p3.respirar();
+		
+		var p2 = new Persona(2);
+		p2.caminar();
+//		p2.respirar(); // falla! respirar() sólo fue definido para p1
+
+		// Añadiendo un método a la clase (prototipo)
+		Persona.prototype.comer = function() {
+			document.writeln(this.id + "Estoy comiendo...<br/>");	
+		};
+		
+		p1.comer();
+		p2.comer();
+	</script>
+</head>
+<body>
+
+</body>
+</html>
