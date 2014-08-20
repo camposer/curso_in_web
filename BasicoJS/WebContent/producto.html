@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Producto</title>
+	<script type="text/javascript">
+		const PROD_MANZANA = "Manzana";
+		const PROD_PERA = "Pera";
+		
+		function Producto(_n, _p) { // Clase Producto
+			this.nombre = _n;
+			this.precio = _p;
+			var cantidad = _p; // Como si fuese privado
+			this.detalles = function() {
+				return "[ nombre = " + this.nombre + 
+					", precio = " + this.precio + " ]";
+			};
+			this.toString = function() {
+				return this.detalles();
+			};
+			this.getCantidad = function() {
+				return cantidad;
+			};
+		};
+		
+		var p1 = new Producto(PROD_MANZANA, 20);
+		var p2 = new Producto(PROD_PERA, 30);
+		
+		document.writeln("p1.nombre: " + p1.nombre);
+		document.writeln("p1.precio: " + p1.precio);
+		document.writeln("p1.cantidad: " + p1.cantidad); // => undefined
+		document.writeln("p1.getCantidad(): " + p1.getCantidad());
+		document.writeln("<br/>");
+		document.writeln("detalles() " + p1.detalles() + "<br/>");
+		document.writeln("toString() " + p1 + "<br/>");
+	</script>
+</head>
+<body>
+
+</body>
+</html>
