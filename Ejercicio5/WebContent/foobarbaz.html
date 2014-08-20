@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Foo Bar Baz</title>
+	<script>
+		/**
+		 * Función que imprime el resultado como se pide en el ejercicio 
+		 * (parecido al que hicimos con Java)
+		 */
+		var primeraSolucion = function() {
+			for (var i = 1; i <= 3*5*7; i++) {
+				var texto = i + ". ";
+				
+				if (i % 3 == 0)
+					texto += "foo ";
+				if (i % 5 == 0)
+					texto += "bar ";
+				if (i % 7 == 0)
+					texto += "baz ";
+				
+				document.writeln(texto + "<br/>");
+			}			
+		};
+		
+		/**
+		 * Función que imprime el resultado en una tabla html de dos columnas
+		 * Internamente creamos una tabla html
+		 */
+		var segundaSolucion = function() {
+			var texto = "<table border='1'>";
+			
+			for (var i = 1; i <= 16; i++) {
+				texto += "<tr>";				
+				texto += "<td>" + i + "</td>";
+				
+				texto += "<td>";
+				if (i % 3 == 0)
+					texto += "foo ";
+				if (i % 5 == 0)
+					texto += "bar ";
+				if (i % 7 == 0)
+					texto += "baz ";
+				
+				texto += "</td>";
+				
+				texto += "</tr>";
+			}			
+			
+			texto += "</table>";
+			
+			document.writeln(texto); // Escribe la tabla dentro del body
+		};
+
+		var fragmentoCodigo = 
+			"var sumar = function(a, b) {" +
+				"return a + b;" +
+			"};" + 
+			"var a = sumar(2, 3);";
+		eval(fragmentoCodigo);
+		document.writeln("2 + 3 = " + a + "<br/>");
+		
+		segundaSolucion(); // Imprime la tabla
+		
+	</script>
+</head>
+<body>
+</body>
+</html>
