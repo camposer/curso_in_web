@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<script type="text/javascript" src="js/PersonaUtil-json.class.js"></script>
+	<script>
+		var personaUtil = new PersonaUtil();
+		var imprimir = function() {
+			var personas = personaUtil.obtenerTodos(); 
+			for (var i in personas) {
+				document.writeln(personas[i] + "<br/>");			
+			}
+		};
+		var detalles = function() {
+			return "[ id = " + this.id + 
+				", nombre = " + this.nombre +
+				", apellido = " + this.apellido +
+				", fnac = " + this.fechaNacimiento + 
+				", sexo = " + this.sexo + "]";
+		};
+		
+		var p1 = {
+				nombre: "María",
+				apellido: "García",
+				fechaNacimiento: new Date(1980, 2, 2),
+				sexo: "F",
+				toString: detalles
+		};
+		
+		// Agregar
+		document.writeln("<h1>Agregar</h1>");
+		personaUtil.agregar(p1);
+		personaUtil.agregar({
+			nombre: "Juan",
+			apellido: "Pérez",
+			fechaNacimiento: new Date(1980, 1, 1),
+			sexo: "M",
+			toString: detalles
+		});
+		imprimir();
+		
+		// Obtener uno
+		document.writeln("<h1>Obtener</h1>");
+		document.writeln(personaUtil.obtener(1) + "<br/>");
+		
+		// Modificar
+		document.writeln("<h1>Modificar</h1>");
+		p1.nombre = "Juanito";
+		p1.fechaNacimiento = new Date(1970, 1, 1);
+		personaUtil.modificar(p1);
+		imprimir();
+
+		// Eliminar
+		document.writeln("<h1>Eliminar</h1>");
+		personaUtil.eliminar(2);
+		imprimir();
+
+		// Final
+		document.writeln("<h1>Final</h1>");
+		personaUtil.agregar({
+			color: "ROJO",
+			altura: 90
+		});
+		imprimir();
+		
+	</script>
+</head>
+<body>
+
+</body>
+</html>
