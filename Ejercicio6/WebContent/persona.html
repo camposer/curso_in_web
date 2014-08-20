@@ -15,13 +15,40 @@
 		p2.setSexo(SEXO_FEMENINO);
 		
 		var personaUtil = new PersonaUtil();
+		var imprimir = function() {
+			var personas = personaUtil.obtenerTodos(); 
+			for (var i in personas) {
+				document.writeln(personas[i] + "<br/>");			
+			}
+		};
+		
+		// Agregar
+		document.writeln("<h1>Agregar</h1>");
 		personaUtil.agregar(p1);
 		personaUtil.agregar(p2);
+		imprimir();
 		
-		var personas = personaUtil.obtenerTodos(); 
-		for (var i in personas) {
-			document.writeln(personas[i] + "<br/>");			
-		}
+		// Obtener uno
+		document.writeln("<h1>Obtener</h1>");
+		document.writeln(personaUtil.obtener(1) + "<br/>");
+		
+		// Modificar
+		document.writeln("<h1>Modificar</h1>");
+		p1.setNombre("Juanito");
+		p1.setFechaNacimiento(new Date(1970, 1, 1));
+		personaUtil.modificar(p1);
+		imprimir();
+
+		// Eliminar
+		document.writeln("<h1>Eliminar</h1>");
+		personaUtil.eliminar(2);
+		imprimir();
+
+		// Final
+		document.writeln("<h1>Final</h1>");
+		personaUtil.agregar(new Persona("Nuevo", "Nuevo"));
+		imprimir();
+		
 	</script>
 </head>
 <body>
