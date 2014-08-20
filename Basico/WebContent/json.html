@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>JavaScript Object Notation - JSON</title>
+	<script>
+		function Persona(_n, _a) {
+			this.nombre = _n;
+			this.apellido = _a;
+			this.toString = function() {
+				return "[ nombre = " + this.nombre + 
+					", apellido = " + this.apellido + " ]";
+			};
+		}
+	
+		// Creando un objeto a partir de una clase
+		var p1 = new Persona("Juan", "Pérez");
+		document.writeln(p1 + "<br/>");
+		
+		// Creando un objeto directamente con JSON
+		var p2 = {
+			"nombre": "María",
+			apellido: "García",
+			toString: function() {
+				return "[ nombre = " + this.nombre + 
+					", apellido = " + this.apellido + " ]";
+			}
+		};
+		document.writeln(p2 + "<br/>");
+		
+		var imprimir = function() {
+			return "[ nombre = " + this.nombre + 
+				", apellido = " + this.apellido + " ]";
+		};
+		
+		var p3 = {
+				sexo: "M"
+		};
+		p3.nombre = "Pedro";
+		p3["apellido"] = "García";
+		p3.toString = imprimir;
+		document.writeln(p3 + "<br/>");
+		
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
