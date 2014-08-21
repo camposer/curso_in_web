@@ -2,56 +2,232 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
-	<script type="text/javascript" src="js/Persona.class.js"></script>
-	<script type="text/javascript" src="js/PersonaUtil.class.js"></script>
+	<title>Personas</title>
+	<link rel="stylesheet" type="text/css" href="css/comun.css">
+	<link rel="stylesheet" type="text/css" href="css/persona.css">
+	<script type="text/javascript" src="js/PersonaUtil-json.class.js"></script>
+	
 	<script>
-		var p1 = new Persona("Juan", "Pérez");
-		p1.setFechaNacimiento(new Date(1980, 1, 1));
-		p1.setSexo(SEXO_MASCULINO);
-		
-		var p2 = new Persona("María", "García");
-		p2.setFechaNacimiento(new Date(1986, 2, 2));
-		p2.setSexo(SEXO_FEMENINO);
-		
 		var personaUtil = new PersonaUtil();
-		var imprimir = function() {
-			var personas = personaUtil.obtenerTodos(); 
+
+		/**
+		 * Inicializa personas dentro del array
+		 */
+		var initPersonaUtil = function() {
+			var p1 = {
+				nombre: "Juan",
+				apellido: "Pérez",
+				fechaNacimiento: "1980-01-01",
+				sexo: "M"
+			};
+			var p2 = {
+				nombre: "María",
+				apellido: "García",
+				fechaNacimiento: "1970-02-02",
+				sexo: "F"
+			};
+			personaUtil.agregar(p1);
+			personaUtil.agregar(p2);
+		};
+	
+		var cargarTabla = function() {
+			var tbody = document.getElementById("tbodyPersonas");
+			
+			var personas = personaUtil.obtenerTodos();
+			var filas = "";
 			for (var i in personas) {
-				document.writeln(personas[i] + "<br/>");			
+				var p = personas[i];
+				
+				filas += "<tr>";
+				filas += "<td>" + personas[i].nombre + "</td>";
+				filas += "<td>" + p.apellido + "</td>";
+				filas += "<td>" + p.fechaNacimiento + "</td>";
+				filas += "<td>" + p.sexo + "</td>";
+				filas += "<td><a href='#' onclick='mostrar(" + p.id + ")'>mostrar</a></td>";
+				filas += "<td><a href='#' onclick='eliminar(" + p.id + ")'>eliminar</a></td>";
+				filas += "</tr>";
+			}
+			
+			tbody.innerHTML = filas; // Meto las filas dentro del tbody
+		};
+
+		/**
+		 * Muestra los datos de la persona seleccionada en el formulario
+		 * 1. Busca la persona en personaUtil dado un id
+		 * 2. Llena el formulario con los datos de la persona
+		 */
+		var mostrar = function(id) {
+			// 1.
+			var p = personaUtil.obtener(id);
+			
+			// 2.
+			document.getElementById("inputId")
+				.value = p.id;
+			document.getElementById("inputNombre")
+				.value = p.nombre;
+			document.getElementById("inputApellido")
+				.value = p.apellido;
+			document.getElementById("inputFecha")
+				.value = p.fechaNacimiento;
+			
+			var inputSexo = document
+				.getElementsByName("inputSexo");
+			if (p.sexo == "M")
+				inputSexo.item(0).checked = "checked";
+			else
+				inputSexo.item(1).checked = "checked";
+		};
+		
+		/**
+		 * Función que elimina la persona según el id especificado
+		 * 0. Confirmar que el usuario quiere eliminar el registro
+		 * 1. Llama a personaUtil.eliminar
+		 * 2. Recarga la tabla
+		 */
+		var eliminar = function(id) {
+			// 0.
+			var respuesta = confirm("Está seguro de que desea eliminar el elemento (id=" + id + ")? ");
+			
+			if (respuesta) {
+				// 1.
+				personaUtil.eliminar(id);
+				
+				// 2.
+				cargarTabla();
 			}
 		};
 		
-		// Agregar
-		document.writeln("<h1>Agregar</h1>");
-		personaUtil.agregar(p1);
-		personaUtil.agregar(p2);
-		imprimir();
-		
-		// Obtener uno
-		document.writeln("<h1>Obtener</h1>");
-		document.writeln(personaUtil.obtener(1) + "<br/>");
-		
-		// Modificar
-		document.writeln("<h1>Modificar</h1>");
-		p1.setNombre("Juanito");
-		p1.setFechaNacimiento(new Date(1970, 1, 1));
-		personaUtil.modificar(p1);
-		imprimir();
+		/**
+		 * Función llamada por el botón de Agregar o Modificar
+		 * 1. Recupera los campos del formulario
+		 * 2. Valida
+		 * 3. Crea  el objeto de persona (JSON) con los valores recuperados
+		 * 4. Agrega o modificar utilizando personaUtil.agregar o personaUtil.modificar si id es vacío o no
+		 * 5. Limpia el formulario
+		 * 6. Recarga la tabla
+		 */
+		var guardar = function(op) {
+			// 1.
+			var id = document.getElementById("inputId").value;
+			var nombre = document.getElementById("inputNombre").value;
+			var apellido = document.getElementById("inputApellido").value;
+			var fecha = document.getElementById("inputFecha").value;
+			var inputSexo = document.getElementsByName("inputSexo");
+			var sexo = "M";
+			
+			if (inputSexo.item(1).checked)
+				sexo = "F";
+			
+			// 2.
+			var valido = true;
+			
+			// TODO Añadir validación sólo letras (ver regexp)
+			// TODO Validar fecha...
+			if (nombre == "" || nombre.length <= 1)
+				valido = false;
+			if (apellido == "" || apellido.length <= 1)
+				valido = false;
 
-		// Eliminar
-		document.writeln("<h1>Eliminar</h1>");
-		personaUtil.eliminar(2);
-		imprimir();
+			if (!valido) {
+				window.alert("Uno de los campos es inválido");
+				return;				
+			} 
+			
+			// 3.
+			var p = {
+				"nombre": nombre,
+				"apellido": apellido,
+				"fechaNacimiento": fecha,
+				"sexo": sexo
+			};
+			
+			// 4.
+			if (op == "mod") { // MODIFICAR
+				p.id = id;
+				personaUtil.modificar(p);				
+			} else { // AGREGAR
+				personaUtil.agregar(p);
+			}
+			
+			// 5.
+			limpiarFormulario();
+			
+			// 6.
+			cargarTabla();			
+		};
 
-		// Final
-		document.writeln("<h1>Final</h1>");
-		personaUtil.agregar(new Persona("Nuevo", "Nuevo"));
-		imprimir();
+		/**
+		 * Limpia los campos del formulario
+		 * 1. Obtiene los elementos por id
+		 * 2. Cambia sus valores a vacío
+		 */
+		var limpiarFormulario = function() {
+			var inputNombre = document
+				.getElementById("inputNombre");
+			inputNombre.value = "";
+			document.getElementById("inputId").value = "";
+			document.getElementById("inputApellido").value = "";
+			document.getElementById("inputFecha").value = "";
+			
+			var inputSexo = document.getElementsByName("inputSexo");
+			inputSexo.item(0).checked = "checked";
+			
+		};
 		
+		var init = function() {
+			initPersonaUtil();
+			cargarTabla();
+			//document.getElementById("inputFecha").disabled = true;
+			//document.getElementById("inputFecha").style.visibility = "hidden";
+		};
 	</script>
 </head>
-<body>
+<body onload="init()">
+	<h1>Personas</h1>
+	<input type="hidden" name="inputId" id="inputId"/>
+	<table class="tablaCentrada tablaFormulario">
+		<tr>
+			<td>Nombre:</td>
+			<td><input type="text" name="inputNombre" id="inputNombre"/></td>
+		</tr>
+		<tr>
+			<td>Apellido:</td>
+			<td><input type="text" name="inputApellido" id="inputApellido"/></td>
+		</tr>
+		<tr>
+			<td>Fecha:</td>
+			<td><input type="text" name="inputFecha" id="inputFecha"/></td>
+		</tr>
+		<tr>
+			<td>Sexo:</td>
+			<td>
+				M <input type="radio" name="inputSexo" value="M" checked="checked"/>
+				F <input type="radio" name="inputSexo" value="F"/>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<input type="button" value="Agregar" onclick="guardar('agr')"/>
+				<input type="button" value="Modificar" onclick="guardar('mod')"/>
+			</td>
+		</tr>
+	</table>
+	<br/>
 
+	<table id="tablaPersonas" class="tablaCentrada tablaDatos">
+		<thead>
+			<tr>
+				<th>Nombre</th>
+				<th>Apellido</th>
+				<th>Fecha</th>
+				<th>Sexo</th>
+				<th>Mostrar</th>
+				<th>Eliminar</th>			
+			</tr>
+		</thead>
+
+		<tbody id="tbodyPersonas">
+		</tbody>
+	</table>
 </body>
 </html>
