@@ -1,0 +1,1 @@
+sed "s/\"/'/g" persona.html | awk -v _CD='"' '{ print "pw.println(" _CD $0 _CD ");" }'
