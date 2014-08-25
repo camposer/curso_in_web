@@ -1,7 +1,7 @@
 package servlet;
 
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.List;
 
@@ -24,8 +24,8 @@ public class Persona2Servlet extends HttpServlet {
 			.include(request, response);
 			
 		// Cuerpo
-//		response.setCharacterEncoding("UTF-8"); // Cambia la codificación de ISO (por defecto) a UTF-8
-//		response.setContentType("UTF-8"); // Cambia la codificación de ISO (por defecto) a UTF-8
+		response.setContentType("text/html; charset=UTF-8"); // Cambia la codificación de ISO (por defecto) a UTF-8
+		//PrintWriter pw = new PrintWriter(new OutputStreamWriter(out, "utf-8"));
 		PrintWriter pw = response.getWriter();
 		
 		// TODO Incluir div!
