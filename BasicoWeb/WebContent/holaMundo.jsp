@@ -10,6 +10,12 @@
 	<title>Hola mundo</title>
 </head>
 <body>
+	<%! // Esto va fuera del método service
+		private String saludar(int numero) {
+			return "Hola mundo " + numero;
+		}
+	%>
+
 	<%
 		String chao = "chao";
 	%>
@@ -32,6 +38,12 @@
 		out.println(mensaje);
 	%>
 	</font><br/>
+	
+	<!-- Contenido dinámico con expresión y valor arrojado por una función  -->
+	<font color="violet">
+	<%= saludar(4) %>
+	</font><br/>
+
 	<!-- Contenido dinámico con expresión utilizando variable -->
 	<%= chao %>
 	
