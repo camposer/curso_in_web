@@ -14,6 +14,16 @@ import javax.servlet.http.HttpServletResponse;
 import to.PersonaTo;
 
 @WebServlet("/Resultado2")
+/**
+ * Valida los datos de la petición que vienen del formulario
+ * en /Persona2 y luego:
+ * Si hubo error: define un atributo errores en la petición
+ * Si no hubo error: define un atributo persona en la petición
+ * 
+ * El atributo persona contiene nombre, apellido, edad y comentario (si la persona puede jubilarse o no)
+ * 
+ * Finalmente devuelve el control (forward) a /Persona2 (que es quien pinta en pantalla!!!)
+ */
 public class Resultado2Servlet extends HttpServlet {
 	private static final int EDAD_JUBILACION = 65;
 	private static final long serialVersionUID = 1L;

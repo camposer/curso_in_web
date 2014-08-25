@@ -1,10 +1,10 @@
 package servlet;
 
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,9 +19,9 @@ public class Persona2Servlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Cabecera
-		request
-			.getRequestDispatcher("/Cabecera")
-			.include(request, response);
+		RequestDispatcher rd = request
+				.getRequestDispatcher("/Cabecera");
+		rd.include(request, response);
 			
 		// Cuerpo
 		response.setContentType("text/html; charset=UTF-8"); // Cambia la codificación de ISO (por defecto) a UTF-8
@@ -29,8 +29,10 @@ public class Persona2Servlet extends HttpServlet {
 		PrintWriter pw = response.getWriter();
 		
 		// TODO Incluir div!
-		List<String> errores = (List<String>)request.getAttribute("errores");
-		PersonaTo persona = (PersonaTo)request.getAttribute("persona");
+		List<String> errores = (List<String>)
+				request.getAttribute("errores"); // => null para la primera ejecución
+		PersonaTo persona = (PersonaTo)
+				request.getAttribute("persona"); // => null para la primera ejecución
 		
 		if (errores != null) { // Hay errores por imprimir
 			pw.println("   <div style='color: red'>");
@@ -47,11 +49,13 @@ public class Persona2Servlet extends HttpServlet {
 			pw.println("   </div>");
 		}
 		
+		String nombre = request.getParameter("nombre");
+		
 		pw.println("   <form action='Resultado2' method='post'>");
 		pw.println("      <table>");
 		pw.println("         <tr>");
 		pw.println("            <td>Nombre:</td>");
-		pw.println("            <td><input type='text' name='nombre' id='nombre'/></td>");
+		pw.println("            <td><input type='text' name='nombre' id='nombre' value='" + ((nombre!=null)?nombre:"") + "'/></td>");
 		pw.println("         </tr>");
 		pw.println("         <tr>");
 		pw.println("            <td>Apellido:</td>");
