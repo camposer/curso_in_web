@@ -23,7 +23,8 @@ public class ResultadoAmbitoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String nombre = request.getParameter("nombre");
+		//String nombre = request.getParameter("nombre");
+		String nombre = (String)request.getAttribute("nombre");
 		HttpSession session = request.getSession();
 		ServletContext global = getServletContext();
 		ServletConfig config = getServletConfig();
