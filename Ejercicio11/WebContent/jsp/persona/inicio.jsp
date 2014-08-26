@@ -12,6 +12,7 @@
 </head>
 <body>
 	<h1>Personas</h1>
+	<form action="Agregar" method="post">
 	<input type="hidden" name="inputId" id="inputId"/>
 	<table class="tablaCentrada tablaFormulario">
 		<tr>
@@ -32,11 +33,13 @@
 		</tr>
 		<tr>
 			<td colspan="2">
-				<input type="button" value="Agregar"/>
+				<input type="submit" value="Agregar"/>
 				<input type="button" value="Modificar"/>
 			</td>
 		</tr>
 	</table>
+	</form>
+	
 	<br/>
 
 	<table id="tablaPersonas" class="tablaCentrada tablaDatos">
