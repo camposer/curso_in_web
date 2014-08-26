@@ -5,9 +5,6 @@
 <head>
    <meta charset='UTF-8'>
    <title>Persona</title>
-</head>
-<body>
-
    <script>
       var validar = function() {
          var nombre = document.getElementById('nombre').value;
@@ -23,13 +20,14 @@
          if (noEsNumero || edad <= 0)
             error += 'Edad inválida';
          
-         if (error != '')
-            window.alert(error);
-         else 
+         //if (error != '')
+         //   window.alert(error);
+         //else 
             document.forms[0].submit();
       };
    </script>
-		
+</head>
+<body>
    <form action='resultado.jsp' method='post'>
       <table>
          <tr>

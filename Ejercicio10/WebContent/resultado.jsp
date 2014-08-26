@@ -34,7 +34,7 @@
 		}
 		
 		// Imprimir resultados
-		if (errores.size() == 0) {
+		if (errores.size() == 0) { // No hay errores
 	%>
 
 	Nombre: <%= nombre %><br/>
@@ -46,20 +46,20 @@
 			if (anios <= 0) { // Eres un máquina
 	%>
 
-	<div style='color: green'>Eres un máquina!</div>
+		<div style='color: green'>Eres un máquina!</div>
 
 	<%
 			} else {  // A currar
 	%>
 
-	<div style='color: violet'>A currar!</div>
+		<div style='color: violet'>A currar!</div>
 
 	<%
 			}
 		} else { // Imprimiendo errores
 	%>
 
-	<div style='background-color: red'>
+		<div style='background-color: red'>
 
 	<%
 			for (String e : errores) {
@@ -68,7 +68,7 @@
 	<%
 			}
 	 %>
-</div>
+		</div>
 	<%
 		}
 	%>
