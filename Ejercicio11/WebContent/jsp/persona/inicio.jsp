@@ -1,3 +1,5 @@
+<%@page import="model.Persona"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -8,7 +10,7 @@
 	<link rel="stylesheet" type="text/css" href="../css/comun.css">
 	<link rel="stylesheet" type="text/css" href="../css/persona.css">
 </head>
-<body onload="init()">
+<body>
 	<h1>Personas</h1>
 	<input type="hidden" name="inputId" id="inputId"/>
 	<table class="tablaCentrada tablaFormulario">
@@ -25,16 +27,13 @@
 			<td><input type="text" name="inputFecha" id="inputFecha"/></td>
 		</tr>
 		<tr>
-			<td>Sexo:</td>
-			<td>
-				M <input type="radio" name="inputSexo" value="M" checked="checked"/>
-				F <input type="radio" name="inputSexo" value="F"/>
-			</td>
+			<td>Altura:</td>
+			<td><input type="text" name="inputAltura" id="inputAltura"/></td>
 		</tr>
 		<tr>
 			<td colspan="2">
-				<input type="button" value="Agregar" onclick="guardar('agr')"/>
-				<input type="button" value="Modificar" onclick="guardar('mod')"/>
+				<input type="button" value="Agregar"/>
+				<input type="button" value="Modificar"/>
 			</td>
 		</tr>
 	</table>
@@ -46,13 +45,33 @@
 				<th>Nombre</th>
 				<th>Apellido</th>
 				<th>Fecha</th>
-				<th>Sexo</th>
+				<th>Altura</th>
 				<th>Mostrar</th>
 				<th>Eliminar</th>			
 			</tr>
 		</thead>
 
 		<tbody id="tbodyPersonas">
+		<%
+			// Obteniendo personas que son enviadas desde el Controlador
+			List<Persona> personas = (List<Persona>)
+				request.getAttribute("personas");
+		
+			if (personas != null) {
+				for (Persona p : personas) {
+		%>
+					<tr>
+						<td><%= p.getNombre() %></td>
+						<td><%= p.getApellido() %></td>
+						<td><%= p.getFechaNacimiento() %></td>
+						<td><%= p.getAltura() %></td>
+						<td><a href="#">mostrar</a></td>
+						<td><a href="#">eliminar</a></td>
+					</tr>
+		<%
+				}
+			}
+		%>
 		</tbody>
 	</table>
 </body>
