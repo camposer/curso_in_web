@@ -13,12 +13,17 @@
 		.errores {
 			background-color: red; 
 			color: white; 
-			border: darkred;
 			margin-left: auto;
 			margin-right: auto;
 			width: 60%		
 		}
 	</style>
+	<script>
+		var confirmar = function() {
+			var confirmado = confirm("Está seguro de que desea eliminar la persona seleccionada?");
+			return confirmado; // true o false
+		};
+	</script>
 </head>
 <body>
 	<h1>Personas</h1>
@@ -67,6 +72,8 @@
 	<table id="tablaPersonas" class="tablaCentrada tablaDatos">
 		<thead>
 			<tr>
+				<th>#</th>
+				<th>Id</th>
 				<th>Nombre</th>
 				<th>Apellido</th>
 				<th>Fecha</th>
@@ -83,15 +90,23 @@
 				request.getAttribute("personas");
 		
 			if (personas != null) {
+				int num = 1;
 				for (Persona p : personas) {
 		%>
 					<tr>
+						<td><%= num++ %></td>
+						<td><%= p.getId() %></td>
 						<td><%= p.getNombre() %></td>
 						<td><%= p.getApellido() %></td>
 						<td><%= p.getFechaNacimiento() %></td>
 						<td><%= p.getAltura() %></td>
 						<td><a href="#">mostrar</a></td>
-						<td><a href="#">eliminar</a></td>
+						<td><a 
+								href="<%= getServletContext().getContextPath() %>/persona/Eliminar?id=<%= p.getId() %>" 
+								onclick="return confirmar()">
+									eliminar
+							</a>
+						</td>
 					</tr>
 		<%
 				}

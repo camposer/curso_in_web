@@ -1,11 +1,11 @@
-#tablaPersonas td:nth-child(3),
-#tablaPersonas td:nth-child(4),
-#tablaPersonas td:nth-child(5) {
+#tablaPersonas td:nth-child(6),
+#tablaPersonas td:nth-child(7),
+#tablaPersonas td:nth-child(8) {
 	text-align: center;
 }
 
-#tablaPersonas td:nth-child(4) a,
-#tablaPersonas td:nth-child(5) a {
+#tablaPersonas td:nth-child(7) a,
+#tablaPersonas td:nth-child(8) a {
 	color: black;
 }
 
