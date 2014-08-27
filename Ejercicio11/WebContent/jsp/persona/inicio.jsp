@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="model.Persona"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -40,23 +41,54 @@
 	%>
 	</div>
 	<form action="Agregar" method="post">
+	<%
+		Persona persona = (Persona)session.getAttribute("persona");
+		String fecha = "";
+		if (persona != null && persona.getFechaNacimiento() != null)
+			fecha = new SimpleDateFormat("yyyy-MM-dd")
+				.format(persona.getFechaNacimiento());
+	%>
 	<input type="hidden" name="inputId" id="inputId"/>
 	<table class="tablaCentrada tablaFormulario">
 		<tr>
 			<td>Nombre:</td>
-			<td><input type="text" name="inputNombre" id="inputNombre"/></td>
+			<td>
+				<input 
+					type="text" 
+					name="inputNombre" 
+					id="inputNombre"
+					value="<%= (persona!=null)?persona.getNombre():"" %>"/>
+			</td>
 		</tr>
 		<tr>
 			<td>Apellido:</td>
-			<td><input type="text" name="inputApellido" id="inputApellido"/></td>
+			<td>
+				<input 
+					type="text" 
+					name="inputApellido" 
+					id="inputApellido"
+					value="<%= (persona!=null)?persona.getApellido():"" %>"/>
+			</td>
 		</tr>
 		<tr>
 			<td>Fecha:</td>
-			<td><input type="text" name="inputFecha" id="inputFecha"/></td>
+			<td>
+				<input 
+					type="text" 
+					name="inputFecha" 
+					id="inputFecha"
+					value="<%= fecha %>"/>
+			</td>
 		</tr>
 		<tr>
 			<td>Altura:</td>
-			<td><input type="text" name="inputAltura" id="inputAltura"/></td>
+			<td>
+				<input 
+					type="text" 
+					name="inputAltura" 
+					id="inputAltura"
+					value="<%= (persona!=null)?persona.getAltura():"" %>"/>
+			</td>
 		</tr>
 		<tr>
 			<td colspan="2">
@@ -66,7 +98,10 @@
 		</tr>
 	</table>
 	</form>
-	
+	<%
+		if (persona != null)
+			session.removeAttribute("persona");
+	%>
 	<br/>
 
 	<table id="tablaPersonas" class="tablaCentrada tablaDatos">
@@ -100,7 +135,11 @@
 						<td><%= p.getApellido() %></td>
 						<td><%= p.getFechaNacimiento() %></td>
 						<td><%= p.getAltura() %></td>
-						<td><a href="#">mostrar</a></td>
+						<td><a
+								href="Mostrar?id=<%= p.getId() %>"> 
+									mostrar
+							</a>
+						</td>
 						<td><a 
 								href="<%= getServletContext().getContextPath() %>/persona/Eliminar?id=<%= p.getId() %>" 
 								onclick="return confirmar()">
