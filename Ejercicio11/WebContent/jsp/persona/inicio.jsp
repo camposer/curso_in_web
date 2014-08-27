@@ -20,9 +20,23 @@
 		}
 	</style>
 	<script>
+		const AGREGAR = 0;
+		const MODIFICAR = 1;
+	
 		var confirmar = function() {
 			var confirmado = confirm("Está seguro de que desea eliminar la persona seleccionada?");
 			return confirmado; // true o false
+		};
+		
+		var guardar = function(op) {
+			var form = document.forms.formPersona;
+			
+			if (op == AGREGAR)
+				form.action = "Agregar";
+			else if (op == MODIFICAR)
+				form.action = "Modificar";
+			
+			form.submit();
 		};
 	</script>
 </head>
@@ -40,7 +54,9 @@
 		session.removeAttribute("errores");
 	%>
 	</div>
-	<form action="Agregar" method="post">
+	
+	<form name="formPersona" method="post">
+	
 	<%
 		Persona persona = (Persona)session.getAttribute("persona");
 		String fecha = "";
@@ -48,7 +64,12 @@
 			fecha = new SimpleDateFormat("yyyy-MM-dd")
 				.format(persona.getFechaNacimiento());
 	%>
-	<input type="hidden" name="inputId" id="inputId"/>
+	
+	<input 
+		type="hidden" 
+		name="inputId" 
+		id="inputId"
+		value="<%= (persona!=null)?persona.getId():"" %>"/>
 	<table class="tablaCentrada tablaFormulario">
 		<tr>
 			<td>Nombre:</td>
@@ -92,8 +113,19 @@
 		</tr>
 		<tr>
 			<td colspan="2">
-				<input type="submit" value="Agregar"/>
-				<input type="button" value="Modificar"/>
+				<% 
+					if (persona == null) {
+				%>
+				<input type="button" value="Agregar" onclick="guardar(AGREGAR)"/>
+				<% 
+					} else {
+				%>
+				<!-- En cancelar: forma alternativa de realizar una petición con JS -->
+				<input type="button" value="Cancelar" onclick="window.location.href='Inicio'"/>
+				<input type="button" value="Modificar" onclick="guardar(MODIFICAR)"/>
+				<% 
+					}
+				%>
 			</td>
 		</tr>
 	</table>

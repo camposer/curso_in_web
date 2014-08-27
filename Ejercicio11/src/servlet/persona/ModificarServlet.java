@@ -17,23 +17,30 @@ import exception.AppServiceException;
 import model.Persona;
 import service.PersonaService;
 
-@WebServlet("/persona/Agregar")
-public class AgregarServlet extends HttpServlet {
+@WebServlet("/persona/Modificar")
+public class ModificarServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<String> errores = new ArrayList<String>();
+		Integer id = null;
 		Date fecha = null;
 		Float altura = null;
 		
 		// Obteniendo parámetros de la petición
 		request.setCharacterEncoding("UTF-8");
+		String sid = request.getParameter("inputId");
 		String nombre = request.getParameter("inputNombre");
 		String apellido = request.getParameter("inputApellido");
 		String sfecha = request.getParameter("inputFecha");
 		String saltura = request.getParameter("inputAltura");
 
 		// Validaciones
+		try {
+			id = Integer.parseInt(sid);
+		} catch (NumberFormatException e1) {
+			errores.add("Id inválido");
+		}
 		if (nombre.trim().equals("")) // Validando nombre
 			errores.add("Nombre inválido"); 
 		if (apellido.trim().equals("")) // Validando apellido
@@ -52,9 +59,10 @@ public class AgregarServlet extends HttpServlet {
 		if (errores.size() == 0) { // No hay errores
 			// Agregando a la persona
 			Persona p = new Persona(nombre, apellido, altura, fecha);
+			p.setId(id);
 			PersonaService ps = new PersonaService();
 			try {
-				ps.agregarPersona(p);
+				ps.modificarPersona(p);
 			} catch (AppServiceException e) {
 				errores.add("Error de acceso a datos");
 				e.printStackTrace();
@@ -68,12 +76,7 @@ public class AgregarServlet extends HttpServlet {
 		}
 		
 		// Redireccionando (ejecuta el cliente!!!)
-//		response.sendRedirect("Inicio"); // Con ruta relativa
-		// getServletContext().getContextPath() => /Ejercicio11
-		response.sendRedirect(getServletContext().getContextPath() + 
-				"/persona/Inicio"); // Con ruta absoluta
+		response.sendRedirect("Inicio"); 
 	
-		// No hacer lo de abajo, ver: PRG!!!
-//		request.getRequestDispatcher("/persona/Inicio").forward(request, response);
 	}
 }
