@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import exception.AppServiceException;
 import model.Persona;
 import service.PersonaService;
 
@@ -35,7 +36,7 @@ public class AgregarServlet extends HttpServlet {
 		if (nombre.trim().equals("")) // Validando nombre
 			errores.add("Nombre inválido"); 
 		if (apellido.trim().equals("")) // Validando apellido
-			errores.add("Nombre inválido"); 
+			errores.add("Apellido inválido"); 
 		try { // Validando fecha
 			fecha = new SimpleDateFormat("yyyy-MM-dd").parse(sfecha);
 		} catch (ParseException e) {
@@ -47,14 +48,23 @@ public class AgregarServlet extends HttpServlet {
 			errores.add("Altura inválida");
 		}
 		
-		// TODO Qué pasa si los datos validados son incorrectos?
+		if (errores.size() == 0) { // No hay errores
+			// Agregando a la persona
+			Persona p = new Persona(nombre, apellido, altura, fecha);
+			PersonaService ps = new PersonaService();
+			try {
+				ps.agregarPersona(p);
+			} catch (AppServiceException e) {
+				errores.add("Error de acceso a datos");
+				e.printStackTrace();
+			}
+		}
 		
-		// Agregando a la persona
-		Persona p = new Persona(nombre, apellido, altura, fecha);
-		PersonaService ps = new PersonaService();
-		ps.agregarPersona(p);
-		
-		// TODO Qué pasa si hay un error al agregar la persona en BD?
+		if (errores.size() > 0) {
+			request
+				.getSession()
+				.setAttribute("errores", errores);
+		}
 		
 		// Redireccionando (ejecuta el cliente!!!)
 //		response.sendRedirect("Inicio"); // Con ruta relativa

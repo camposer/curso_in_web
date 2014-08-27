@@ -9,9 +9,31 @@
 	<title>Personas</title>
 	<link rel="stylesheet" type="text/css" href="../css/comun.css">
 	<link rel="stylesheet" type="text/css" href="../css/persona.css">
+	<style>
+		.errores {
+			background-color: red; 
+			color: white; 
+			border: darkred;
+			margin-left: auto;
+			margin-right: auto;
+			width: 60%		
+		}
+	</style>
 </head>
 <body>
 	<h1>Personas</h1>
+	<div class="errores">
+	<%
+		List<String> errores = (List<String>)session.getAttribute("errores"); 
+		if (errores != null && errores.size() > 0) 
+			for (String e : errores) {
+	%>
+				<%= e %><br/>
+	<%
+			}
+		session.removeAttribute("errores");
+	%>
+	</div>
 	<form action="Agregar" method="post">
 	<input type="hidden" name="inputId" id="inputId"/>
 	<table class="tablaCentrada tablaFormulario">

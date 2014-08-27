@@ -18,7 +18,12 @@ public class InicioServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Recuperas las personas de la BD
-		List<Persona> personas = new PersonaService().obtenerPersonas();
+		List<Persona> personas = null;
+		try {
+			personas = new PersonaService().obtenerPersonas();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		// Pasar las personas a la vista
 		request.setAttribute("personas", personas);
