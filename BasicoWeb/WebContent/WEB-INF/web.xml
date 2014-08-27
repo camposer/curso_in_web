@@ -13,7 +13,6 @@
     <servlet-name>Pepe</servlet-name>
     <url-pattern>/MappingDePepe</url-pattern>
   </servlet-mapping>
-
   <session-config>
     <session-timeout>1</session-timeout>
   </session-config>
