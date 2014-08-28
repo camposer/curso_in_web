@@ -44,7 +44,8 @@
 	<h1>Personas</h1>
 	<div class="errores">
 	<%
-		List<String> errores = (List<String>)session.getAttribute("errores"); 
+		List<String> errores = (List<String>)
+			session.getAttribute("errores"); 
 		if (errores != null && errores.size() > 0) 
 			for (String e : errores) {
 	%>

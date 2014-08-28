@@ -74,6 +74,8 @@ public class AgregarServlet extends HttpServlet {
 				"/persona/Inicio"); // Con ruta absoluta
 	
 		// No hacer lo de abajo, ver: PRG!!!
-//		request.getRequestDispatcher("/persona/Inicio").forward(request, response);
+//		request
+//			.getRequestDispatcher("/persona/Inicio")
+//			.forward(request, response);
 	}
 }

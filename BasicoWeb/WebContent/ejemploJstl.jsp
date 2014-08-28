@@ -18,10 +18,10 @@
 			<th>Capacidad</th>
 		</tr>
 		<%
-			List<Aula> aulas = (List<Aula>) request.getAttribute("aulas");
+			List<Aula> aulasTmp = (List<Aula>) request.getAttribute("aulas");
 			int contador = 1;
-			if (aulas != null)
-				for (Aula a : aulas) {
+			if (aulasTmp != null)
+				for (Aula a : aulasTmp) {
 					String color = "gray";
 					if (contador++ % 2 == 0)
 						color = "blue";
@@ -46,16 +46,16 @@
 		</tr>
 		<!-- Todo lo que va entre ${AQUI} se llama Expression Language (EL) -->
 		<c:set var="contador" value="1" />
-		<c:forEach items="${aulas}" var="a">
+		<c:forEach items="${requestScope.aulas}" var="a">
 			<c:set var="color" value="gray" />
 			<c:if test="${contador % 2 != 0}">
 				<c:set var="color" value="blue" />
 			</c:if>
 
 			<tr bgcolor="<c:out value="${color}" />">
-				<td><c:out value="${a.id}" /></td>
+				<td><c:out value="${a.getId()}" /></td>
 				<td><c:out value="${a.nombre}" /></td>
-				<td><c:out value="${a.capacidad}" /></td>
+				<td><c:out value="${a['capacidad']}" /></td>
 			</tr>
 			<c:set var="contador" value="${contador + 1}" />
 		</c:forEach>
